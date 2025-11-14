@@ -38,16 +38,54 @@ class BookSerializer(serializers.ModelSerializer):
         return obj.num_of_threads
     
 
-class ThreadListSerializer(serializers.ModelSerializer):
+# 게시글의 도서 정보(title)를 함께 조회 [참조 데이터 조회]
+class BookTitleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ('title',)
 
-    # 게시글의 도서 정보(title)를 함께 조회 [참조 데이터 조회]
-    class BookTitleSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = Book
-            fields = ('title',)
+
+class ThreadListSerializer(serializers.ModelSerializer):
     
     book = BookTitleSerializer()
 
     class Meta:
         model = Thread
         fields = ('id', 'title', 'book')
+
+
+class CommentDetailSerializer(serializers.ModelSerializer):
+
+    class ThreadTitleSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Thread
+            fields = ('title',)
+
+    thread = ThreadTitleSerializer()
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
+class ThreadDetailSerializer(serializers.ModelSerializer):
+    
+    book = BookTitleSerializer(read_only=True)
+    comment_set = CommentDetailSerializer(many=True, read_only=True)
+    num_of_comments = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Thread
+        fields = '__all__'
+
+    def get_num_of_comments(self, obj):
+        return obj.num_of_comments
+    
+
+class ThreadCreateSerializer(serializers.ModelSerializer):
+    
+    book = BookTitleSerializer(read_only=True)
+
+    class Meta:
+        model = Thread
+        fields = '__all__'
