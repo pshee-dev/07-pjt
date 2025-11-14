@@ -43,9 +43,10 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    # fix: 권한 클래스 삭제 -> 쿼리셋을 사용하거나 get_queryset() 메서드를 정의하지 않은 뷰에서는 작동하지 않는 문제 해결
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    # ]
 }
 
 MIDDLEWARE = [
