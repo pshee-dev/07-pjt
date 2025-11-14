@@ -77,3 +77,50 @@
 - 모든 PR은 상세한 설명과 함께 제출되어야 하며, 변경사항에 대한 이유를 명확히 기재
 - merge 후에는 반드시 **팀원과 공유**하고, 공유받은 팀원은 `main` 브랜치를 최신 상태로 업데이트 후 자신의 브랜치와 병합하여 작업을 이어서 진행
 - PR 승인은 팀원의 코드를 꼼꼼하게 확인 후 진행하며 필요 시 코멘트를 남겨서 원활한 소통 및 코드 리뷰 습관 기르기
+  
+
+
+## 실행 결과
+A. category_list
+   - 브라우저 접근 출력 예시
+      ![alt text](/screenshot/image-3.png)
+
+B. book_list 
+   - 브라우저 접근 출력 예시 
+      ![alt text](/screenshot/image-2.png)
+  
+C. book_detail 
+   - 브라우저 접근 출력 예시
+      ![alt text](/screenshot/image-1.png)
+
+D. thread_list
+   - 브라우저 접근 출력 예시
+      ![alt text](/screenshot/image-4.png)
+
+E. thread_detail 
+   - 브라우저 접근 출력 예시 
+      ![alt text](/screenshot/image-5.png)
+   - Postman 요청 예시
+     - PUT method
+      ![alt text](/screenshot/image-8.png)
+     - DELETE method
+      ![alt text](/screenshot/image-9.png)
+
+F. create_thread 
+   - Postman 요청 예시
+      ![alt text](/screenshot/image-7.png)
+
+G. create_comment 
+   - Postman 요청 예시
+      ![alt text](/screenshot/image-10.png)
+
+H. comment_detail 
+   - Postman 요청 예시
+     - GET method
+      ![alt text](/screenshot/image-12.png)
+     - PUT method
+      ![alt text](/screenshot/image-11.png)
+     - DELETE method
+      ![alt text](/screenshot/image-6.png)
+
+
