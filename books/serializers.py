@@ -61,7 +61,7 @@ class CommentDetailSerializer(serializers.ModelSerializer):
             model = Thread
             fields = ('title',)
 
-    thread = ThreadTitleSerializer()
+    thread = ThreadTitleSerializer(read_only=True)
 
     class Meta:
         model = Comment

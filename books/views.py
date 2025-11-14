@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Category, Book, Thread
-from .serializers import CategoryListSerializer, BookListSerializer, BookSerializer, ThreadListSerializer, ThreadDetailSerializer, ThreadCreateSerializer
+from .models import Category, Book, Thread, Comment
+from .serializers import CategoryListSerializer, BookListSerializer, BookSerializer, ThreadListSerializer, ThreadDetailSerializer, ThreadCreateSerializer, CommentDetailSerializer
 from django.db.models import Count
 
 @api_view(['GET'])
@@ -59,3 +59,33 @@ def create_thread(request, book_pk):
     if serializer.is_valid(raise_exception=True):
         serializer.save(book=book)
         return Response(serializer.data)
+    
+@api_view(['POST'])
+def create_comment(request, book_pk, thread_pk):
+    thread = Thread.objects.get(pk=thread_pk)
+    serializer = CommentDetailSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(thread=thread)
+        return Response(serializer.data)
+    
+@api_view(['GET', 'PUT', 'DELETE'])
+def comment_detail(request, book_pk, thread_pk, comment_pk):
+    comment = Comment.objects.get(pk=comment_pk)
+
+    if request.method == 'GET':
+        serializer = CommentDetailSerializer(comment)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = CommentDetailSerializer(comment, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        pk = comment.pk
+        comment.delete()
+        msg = {
+            "message": f'comment {pk} is deleted.'
+        }
+        return Response(msg, status=status.HTTP_204_NO_CONTENT)
